@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xueduoduo.xddcyapp.mapper.TUserReadingRecordDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xueduoduo.xddcyapp.entity.TUserReadingRecord">
+        <id column="id" property="id" />
+        <result column="userName" property="userName" />
+        <result column="className" property="className" />
+        <result column="grade" property="grade" />
+        <result column="bookId" property="bookId" />
+        <result column="catalogId" property="catalogId" />
+        <result column="createTime" property="createTime" />
+        <result column="year" property="year" />
+        <result column="month" property="month" />
+        <result column="dayOfMonth" property="dayOfMonth" />
+        <result column="weekOfYear" property="weekOfYear" />
+        <result column="weekOfMonth" property="weekOfMonth" />
+        <result column="userId" property="userId" />
+        <result column="userCode" property="userCode" />
+        <result column="classId" property="classId" />
+    </resultMap>
+	<resultMap  extends="BaseResultMap" type="com.xueduoduo.xddcyapp.entity.TUserReadingRecord" id="ReadingRecordCountMap">
+	<result column="count" property="count" />
+	</resultMap>
+	<select id="selectUserReadingCount" parameterType="java.util.Map" resultMap="ReadingRecordCountMap">
+		SELECT ur.catalogId,ur.userId ,COUNT(id) count FROM t_user_reading_record ur
+		where 1=1
+		<if test="userId != null">
+		 and ur.userId=#{userId,jdbcType=INTEGER}
+		</if>
+		<if test="catalogIds != null">
+		and ur.catalogId in
+			<foreach collection="catalogIds" item="id" separator="," open="(" close=")">
+				#{id,jdbcType=INTEGER}
+			</foreach>
+		</if>
+		GROUP BY ur.catalogId,ur.userId;
+	</select>
+</mapper>

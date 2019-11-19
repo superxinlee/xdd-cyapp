@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xueduoduo.xddcyapp.mapper.TExaminationItemDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xueduoduo.xddcyapp.entity.TExaminationItem">
+        <id column="id" property="id" />
+        <result column="temp" property="temp" />
+        <result column="title" property="title" />
+        <result column="topic" property="topic" />
+        <result column="itemType" property="itemType" />
+        <result column="isValid" property="isValid" />
+        <result column="proportion" property="proportion" />
+        <result column="orderNum" property="orderNum" />
+        <result column="attachmentUrl" property="attachmentUrl" />
+        <result column="correct" property="correct" />
+        <result column="uuid" property="uuid" />
+        <result column="content" property="content" />
+        <result column="score" property="score" />
+        <result column="examinationPid" property="examinationPid" />
+    </resultMap>
+
+</mapper>

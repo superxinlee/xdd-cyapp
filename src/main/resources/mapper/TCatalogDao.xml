@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xueduoduo.xddcyapp.mapper.TCatalogDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xueduoduo.xddcyapp.entity.TCatalog">
+        <id column="id" property="id" />
+        <result column="pId" property="pId" />
+        <result column="catalogName" property="catalogName" />
+        <result column="grade" property="grade" />
+        <result column="bookId" property="bookId" />
+        <result column="catalogType" property="catalogType" />
+        <result column="content" property="content" />
+        <result column="mainImg" property="mainImg" />
+        <result column="viceImg" property="viceImg" />
+        <result column="orderNum" property="orderNum" />
+    </resultMap>
+    
+    
+    <select id="selectAllCatalog" parameterType="int" resultMap="BaseResultMap">
+    	select * from t_catalog 
+    	<if test="bookId != null">
+    		where bookId = #{bookId}
+    	</if>
+    </select>
+	
+	<select id="selectChildrenByPid" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    	select * from t_catalog where pid = #{pid} order by orderNum
+    </select>
+</mapper>

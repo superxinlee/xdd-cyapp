@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xueduoduo.xddcyapp.mapper.TExaminationDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xueduoduo.xddcyapp.entity.TExamination">
+        <id column="id" property="id" />
+        <result column="examName" property="examName" />
+        <result column="grade" property="grade" />
+        <result column="gradeName" property="gradeName" />
+        <result column="disciplineCode" property="disciplineCode" />
+        <result column="disciplineName" property="disciplineName" />
+        <result column="status" property="status" />
+        <result column="createTime" property="createTime" />
+    </resultMap>
+
+	<!-- 分页查询卷子 -->
+	<select id="selectExaminationList" parameterType="com.xueduoduo.xddcyapp.entity.PageModel"
+		resultType="com.xueduoduo.xddcyapp.entity.TExamination">
+		select * FROM t_examination 
+		<if test="keywords != ''">
+			where grade=#{keywords}
+		</if>
+		ORDER BY status desc, createTime desc LIMIT
+		#{begin},#{pageSize}
+	</select>
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xueduoduo.xddcyapp.mapper.TBookInfoDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xueduoduo.xddcyapp.entity.TBookInfo">
+        <id column="id" property="id" />
+        <result column="grade" property="grade" />
+        <result column="gradeName" property="gradeName" />
+        <result column="bookName" property="bookName" />
+        <result column="introduce" property="introduce" />
+    </resultMap>
+
+</mapper>

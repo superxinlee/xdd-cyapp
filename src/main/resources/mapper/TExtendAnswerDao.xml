@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xueduoduo.xddcyapp.mapper.TExtendAnswerDao">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.xueduoduo.xddcyapp.entity.TExtendAnswer">
+        <id column="id" property="id" />
+        <result column="userName" property="userName" />
+        <result column="className" property="className" />
+        <result column="grade" property="grade" />
+        <result column="bookId" property="bookId" />
+        <result column="catalogId" property="catalogId" />
+        <result column="createTime" property="createTime" />
+        <result column="year" property="year" />
+        <result column="month" property="month" />
+        <result column="dayOfMonth" property="dayOfMonth" />
+        <result column="weekOfYear" property="weekOfYear" />
+        <result column="weekOfMonth" property="weekOfMonth" />
+        <result column="userId" property="userId" />
+        <result column="userCode" property="userCode" />
+        <result column="answerContent" property="answerContent" />
+        <result column="classId" property="classId" />
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xueduoduo.xddcyapp.mapper.TExaminationItemUserDao">
+
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap"
+		type="com.xueduoduo.xddcyapp.entity.TExaminationItemUser">
+		<id column="id" property="id" />
+		<result column="userId" property="userId" />
+		<result column="userName" property="userName" />
+		<result column="examItemId" property="examItemId" />
+		<result column="examId" property="examId" />
+		<result column="createTime" property="createTime" />
+		<result column="classId" property="classId" />
+		<result column="className" property="className" />
+		<result column="grade" property="grade" />
+		<result column="gradeName" property="gradeName" />
+		<result column="duration" property="duration" />
+		<result column="examinationPid" property="examinationPid" />
+		<result column="errorNum" property="errorNum" />
+	</resultMap>
+
+
+	<select id="selectReptPort" parameterType="com.xueduoduo.xddcyapp.entity.TExaminationItemUser"
+		resultType="com.xueduoduo.xddcyapp.entity.ReptPort">
+		SELECT
+		a.title,round(AVG(a.errorNum),0)errorNum,round(AVG(a.duration),0)duration
+		FROM(
+		SELECT
+		ep.title,sum(eu.errorNum)errorNum,sum(eu.duration)duration,eu.userId,ep.id
+		itemPid
+		FROM
+		t_examination_item_user eu,
+		t_examination_parent ep
+		WHERE
+		ep.id = eu.examinationPid
+		<if test="classId != null and classId != ''">
+			AND eu.classId=#{classId}
+		</if>
+		AND eu.examId=#{examId}
+		AND eu.createTime = #{createTime}
+		GROUP BY
+		ep.id,eu.userId)as a GROUP BY a.itemPid
+	</select>
+
+
+	<select id="selectClassReptPort" parameterType="com.xueduoduo.xddcyapp.entity.TExaminationItemUser"
+		resultType="com.xueduoduo.xddcyapp.entity.TExaminationItemUser">
+		SELECT
+		createTime,gradeName,className,userName,COUNT(duration)duration,userId
+		FROM
+		t_examination_item_user
+		WHERE
+		 classId=#{classId}
+		AND  examId=#{examId}
+		AND  createTime = #{createTime}
+		GROUP BY userId
+	</select>
+
+	<select id="selectUserReptPort" parameterType="com.xueduoduo.xddcyapp.entity.TExaminationItemUser"
+		resultType="com.xueduoduo.xddcyapp.entity.TExaminationItemUser">
+		SELECT
+			ep.id examinationPid,
+		ep.title examPTitle,
+		item.title examItemTitle,
+		item.id examItemId,
+		sum(eu.duration)duration,
+		sum(eu.errorNum) errorNum
+		FROM
+		t_examination_item_user eu,
+		t_examination_parent ep,
+		t_examination_item item
+		WHERE
+		eu.examinationPid = ep.id
+		AND eu.examItemId = item.id
+		AND eu.userId=#{userId}
+		AND eu.examId=#{examId}
+		AND eu.createTime = #{createTime}
+		GROUP BY
+		item.id
+		ORDER BY
+		item.examinationPid,
+		item.id
+	</select>
+
+
+</mapper>
